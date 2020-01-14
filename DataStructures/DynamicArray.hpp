@@ -2,11 +2,20 @@
 #include "pch.h"
 #include <iostream>
 
+template<typename T>
 class DynamicArray
 {
 public:
 	DynamicArray() : elementCount_(0), elementCapacity_(0)
 	{
+	}
+
+	DynamicArray(DynamicArray<T> &other) : elementCount_(0), elementCapacity_(0)
+	{
+		for (int i = 0; i << other.GetCount(); ++i)
+		{
+			PushBack(other[i]);
+		}
 	}
 
 	~DynamicArray()
@@ -22,7 +31,7 @@ public:
 	int GetCount() { return elementCount_; }
 	int GetCapacity() { return elementCapacity_; }
 
-	void PushBack(int element)
+	void PushBack(T element)
 	{
 		if (elementCount_ == elementCapacity_)
 			GrowContainer();
@@ -37,6 +46,15 @@ public:
 		--elementCount_;
 	}
 
+	void Clear()
+	{
+		if (container_ != 0)
+		{
+			delete[] container_;
+		}
+		elementCount_ = elementCapacity_ = 0;
+	}
+
 private:
 	void GrowContainer()
 	{
@@ -45,7 +63,7 @@ private:
 		elementCapacity_ = elementCapacity_ == 0 ? 1 : elementCapacity_ << 1;
 
 		// Allocate new array
-		auto newContainer = new int[elementCapacity_];
+		auto newContainer = new T[elementCapacity_];
 
 		// Copy elements from old array into new array
 		for (int i = 0; i < oldCapacity; ++i)
@@ -58,14 +76,14 @@ private:
 	}
 
 private:
-	int *container_;
+	T *container_;
 	int elementCount_;
 	int elementCapacity_;
 };
 
 void RunDynamicArrayDriver()
 {
-	DynamicArray dynamicArray;
+	DynamicArray<int> dynamicArray;
 	std::cout << "Count: " << dynamicArray.GetCount() << std::endl;
 	std::cout << "Capacity: " << dynamicArray.GetCapacity() << std::endl;
 

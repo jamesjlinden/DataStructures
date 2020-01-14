@@ -151,8 +151,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.hpp" />
     <ClInclude Include="DynamicArray.hpp" />
+    <ClInclude Include="Foo.hpp" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Queue.hpp" />
+    <ClInclude Include="SinglyLinkedList.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

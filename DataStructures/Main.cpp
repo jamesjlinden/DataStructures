@@ -6,9 +6,14 @@
 #include <memory>
 #include <crtdbg.h>
 #include "DynamicArray.hpp"
+#include "Queue.hpp"
+#include <string>
+
+using namespace std;
 
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	RunDynamicArrayDriver();
+
+	RunQueueDriver();
 }
