@@ -75,7 +75,6 @@ private:
 		container_ = newContainer;
 	}
 
-private:
 	T *container_;
 	int elementCount_;
 	int elementCapacity_;
