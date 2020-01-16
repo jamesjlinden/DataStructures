@@ -7,7 +7,9 @@
 #include <crtdbg.h>
 #include "DynamicArray.hpp"
 #include "Queue.hpp"
+#include "SinglyLinkedList.hpp"
 #include <string>
+#include <list>
 
 using namespace std;
 
@@ -15,5 +17,6 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	RunQueueDriver();
+	RunSinglyLinkedListDriver();
+
 }
