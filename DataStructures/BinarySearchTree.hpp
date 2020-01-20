@@ -38,9 +38,10 @@ public:
         }
     }
 
-    int * Search(int element)
+    int * Search(int value)
     {
-
+        Node *result = SearchRecursively(value, root_);
+        return result ? &result->value_ : 0;
     }
 
     void Delete(int element)
@@ -95,13 +96,27 @@ private:
         }
     }
 
-    // TODO: Clean this function up by reusing the Search() function when you implement it
+    Node* SearchRecursively(int value, Node* currNode)
+    {
+        if (!currNode)
+            return currNode;
+        else if (currNode->value_ == value)
+            return currNode;
+        else if (value < currNode->value_ && currNode->left_)
+            return SearchRecursively(value, currNode->left_);
+        else if (value > currNode->value_&& currNode->right_)
+            return SearchRecursively(value, currNode->right_);
+
+        return 0;
+    }
+
     int DeleteNodeRecursively(int value, Node *currNode)
     {
         if (currNode->value_ == value)
         {
             Node *nodeToDelete = currNode;
             Node *nodeToPromote = 0;
+
             // Delete node
             if (nodeToDelete->left_ && !nodeToDelete->right_)
             {
@@ -320,7 +335,31 @@ void Test6(BinarySearchTree &tree)
     tree.PrintGraphically();
     std::cout << "Delete(44)" << std::endl;
     tree.Delete(44);
+    std::cout << "Insert(65, 82, 54, 76, 68, 80, 97, 93)" << std::endl;
+    tree.Insert({ 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
+    std::cout << "Delete(17)" << std::endl;
+    tree.Delete(17);
+    tree.PrintGraphically();
+
+    tree.Clear();
+}
+
+void Test7(BinarySearchTree &tree)
+{
+    std::cout << "Testing Search..." << std::endl;
+
+    tree.Insert({ 44, 17, 88, 65, 82, 54, 76, 68, 80, 97, 93 });
+    tree.PrintGraphically();
+    std::cout << "Search(88)" << std::endl;
+    int *result = tree.Search(88);
+    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
+    std::cout << "Search(13)" << std::endl;
+    result = tree.Search(13);
+    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
+    std::cout << "Search(44)" << std::endl;
+    result = tree.Search(44);
+    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
 
     tree.Clear();
 }
@@ -334,4 +373,5 @@ void RunBinarySearchTreeDriver()
     Test4(tree);
     Test5(tree);
     Test6(tree);
+    Test7(tree);
 }
