@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 // We will not be treating this in the same manner as a map/dictionary even though that's usually the purpose of a tree.
 // This tree can support insert, search, and delete for integers.

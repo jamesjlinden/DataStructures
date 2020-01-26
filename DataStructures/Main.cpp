@@ -2,14 +2,10 @@
 //
 
 #include "pch.h"
-#include <iostream>
-#include <memory>
 #include <crtdbg.h>
 #include "DynamicArray.hpp"
 #include "Queue.hpp"
 #include "SinglyLinkedList.hpp"
-#include <string>
-#include <list>
 #include "BinarySearchTree.hpp"
 
 using namespace std;
