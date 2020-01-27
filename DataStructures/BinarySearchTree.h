@@ -31,17 +31,17 @@ public:
 private:
     class Node;
 
-    void InsertNodeRecursively(Node* nodeToInsert, Node* currNode);
+    void Insert(Node* nodeToInsert, Node* currNode);
 
     Node* SearchRecursively(int value, Node* currNode);
 
-    int DeleteNodeRecursively(int value, Node* currNode);
+    int Delete(int value, Node* currNode);
 
     void ClearNodeRecursively(Node* node);
 
     void PrintNodesInOrderTraversal(Node* node);
 
-    void PrintNodesGraphically(Node* node);
+    void PrintGraphically(Node* node);
 
     Node* root = 0;
 

@@ -27,7 +27,7 @@ void BinarySearchTree::Insert(int element)
     if (root == 0)
         root = newNode;
     else
-        InsertNodeRecursively(newNode, root);
+        Insert(newNode, root);
 }
 
 template <typename T>
@@ -47,7 +47,7 @@ int* BinarySearchTree::Search(int value)
 
 void BinarySearchTree::Delete(int element)
 {
-    DeleteNodeRecursively(element, root);
+    Delete(element, root);
 }
 
 void BinarySearchTree::Clear()
@@ -69,11 +69,11 @@ void BinarySearchTree::PrintInOrderTraversal()
 void BinarySearchTree::PrintGraphically()
 {
     cout << "Printing tree..." << endl;
-    PrintNodesGraphically(root);
+    PrintGraphically(root);
     cout << endl;
 }
 
-void BinarySearchTree::InsertNodeRecursively(Node* nodeToInsert, Node* currNode)
+void BinarySearchTree::Insert(Node* nodeToInsert, Node* currNode)
 {
     if (nodeToInsert->value == currNode->value)
         throw invalid_argument("Can't insert a duplicate value in a binary search tree.");
@@ -82,14 +82,14 @@ void BinarySearchTree::InsertNodeRecursively(Node* nodeToInsert, Node* currNode)
     {
         // Recurse right if node available
         if (currNode->right != 0)
-            InsertNodeRecursively(nodeToInsert, currNode->right);
+            Insert(nodeToInsert, currNode->right);
         else
             nodeToInsert->SetAsRightChildOf(currNode);
     }
     else
     {
         if (currNode->left != 0)
-            InsertNodeRecursively(nodeToInsert, currNode->left);
+            Insert(nodeToInsert, currNode->left);
         else
             nodeToInsert->SetAsLeftChildOf(currNode);
     }
@@ -109,7 +109,7 @@ BinarySearchTree::Node* BinarySearchTree::SearchRecursively(int value, Node* cur
     return 0;
 }
 
-int BinarySearchTree::DeleteNodeRecursively(int value, Node* currNode)
+int BinarySearchTree::Delete(int value, Node* currNode)
 {
     if (currNode->value == value)
     {
@@ -158,9 +158,9 @@ int BinarySearchTree::DeleteNodeRecursively(int value, Node* currNode)
     else
     {
         if (value < currNode->value && currNode->left)
-            DeleteNodeRecursively(value, currNode->left);
+            Delete(value, currNode->left);
         if (value > currNode->value&& currNode->right)
-            DeleteNodeRecursively(value, currNode->right);
+            Delete(value, currNode->right);
     }
 
     return 0;
@@ -186,16 +186,16 @@ void BinarySearchTree::PrintNodesInOrderTraversal(Node* node)
         PrintNodesInOrderTraversal(node->right);
 }
 
-void BinarySearchTree::PrintNodesGraphically(Node* node)
+void BinarySearchTree::PrintGraphically(Node* node)
 {
     cout << "Node: " << node->value
         << "  Left: " << (node->left != 0 ? to_string(node->left->value) : "Null")
         << "  Right: " << (node->right != 0 ? to_string(node->right->value) : "Null")
         << "  Parent: " << (node->parent != 0 ? to_string(node->parent->value) : "Null") << endl;
     if (node->left)
-        PrintNodesGraphically(node->left);
+        PrintGraphically(node->left);
     if (node->right)
-        PrintNodesGraphically(node->right);
+        PrintGraphically(node->right);
 }
 
 BinarySearchTree::Node::Node(int value) : value(value) {}
