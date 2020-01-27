@@ -6,7 +6,8 @@
 #include "DynamicArray.hpp"
 #include "Queue.hpp"
 #include "SinglyLinkedList.hpp"
-#include "BinarySearchTree.hpp"
+#include "BinarySearchTree.h"
+#include "StdlibAlgorithmDemo.h"
 
 using namespace std;
 
