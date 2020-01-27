@@ -1,8 +1,6 @@
 #pragma once
 #include "pch.h"
-#include <iostream>
-#include <stdexcept>
-#include <string>
+#include <initializer_list>
 
 // We will not be treating this in the same manner as a map/dictionary even though that's usually the purpose of a tree.
 // This tree can support insert, search, and delete for integers.
@@ -45,7 +43,7 @@ private:
 
     void PrintNodesGraphically(Node* node);
 
-    Node* root;
+    Node* root = 0;
 
     class Node
     {
@@ -58,10 +56,10 @@ private:
 
         void SetAsRightChildOf(Node* parent);
 
-        int value;
-        Node* left;
-        Node* right;
-        Node* parent;
+        int value = 0;
+        Node* left = 0;
+        Node* right = 0;
+        Node* parent = 0;
     private:
     };
 };

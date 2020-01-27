@@ -156,15 +156,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
-    <ClInclude Include="BinarySearchTree.cpp" />
-    <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Queue.hpp" />
-    <ClInclude Include="SinglyLinkedList.hpp" />
     <ClInclude Include="StdlibAlgorithmDemo.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="StdlibAlgorithmDemo.cpp" />
+    <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <string>
 
+using namespace std;
+
 // We will not be treating this in the same manner as a map/dictionary even though that's usually the purpose of a tree.
 // This tree can support insert, search, and delete for integers.
 // Characters or strings may be supported in the future.
@@ -29,7 +31,7 @@ void BinarySearchTree::Insert(int element)
 }
 
 template <typename T>
-void BinarySearchTree::Insert(std::initializer_list<T> elements)
+void BinarySearchTree::Insert(initializer_list<T> elements)
 {
     for (auto element : elements)
     {
@@ -59,22 +61,22 @@ void BinarySearchTree::Clear()
 
 void BinarySearchTree::PrintInOrderTraversal()
 {
-    std::cout << "Printing tree..." << std::endl;
+    cout << "Printing tree..." << endl;
     PrintNodesInOrderTraversal(root);
-    std::cout << std::endl;
+    cout << endl;
 }
 
 void BinarySearchTree::PrintGraphically()
 {
-    std::cout << "Printing tree..." << std::endl;
+    cout << "Printing tree..." << endl;
     PrintNodesGraphically(root);
-    std::cout << std::endl;
+    cout << endl;
 }
 
 void BinarySearchTree::InsertNodeRecursively(Node* nodeToInsert, Node* currNode)
 {
     if (nodeToInsert->value == currNode->value)
-        throw std::invalid_argument("Can't insert a duplicate value in a binary search tree.");
+        throw invalid_argument("Can't insert a duplicate value in a binary search tree.");
 
     if (nodeToInsert->value > currNode->value)
     {
@@ -114,20 +116,17 @@ int BinarySearchTree::DeleteNodeRecursively(int value, Node* currNode)
         Node* nodeToDelete = currNode;
         Node* nodeToPromote = 0;
 
-        // Delete node
         if (nodeToDelete->left && !nodeToDelete->right)
         {
             nodeToPromote = nodeToDelete->left;
             if (nodeToDelete->parent)
                 nodeToPromote->SetAsRightChildOf(nodeToDelete->parent);
-            delete nodeToDelete;
         }
         else if (!nodeToDelete->left && nodeToDelete->right)
         {
             nodeToPromote = nodeToDelete->right;
             if (nodeToDelete->parent)
                 nodeToPromote->SetAsLeftChildOf(nodeToDelete->parent);
-            delete nodeToDelete;
         }
         else if (nodeToDelete->left && nodeToDelete->right)
         {
@@ -150,15 +149,11 @@ int BinarySearchTree::DeleteNodeRecursively(int value, Node* currNode)
 
             if (nodeToDelete->parent != 0)
                 nodeToPromote->SetAsRightChildOf(nodeToDelete->parent);
-            if (nodeToDelete == root)
-                root = nodeToPromote;
+        }
 
-            delete nodeToDelete;
-        }
-        else
-        {
-            delete nodeToDelete;
-        }
+        if (nodeToDelete == root && nodeToPromote)
+            root = nodeToPromote;
+        delete nodeToDelete;
     }
     else
     {
@@ -186,17 +181,17 @@ void BinarySearchTree::PrintNodesInOrderTraversal(Node* node)
 {
     if (node->left)
         PrintNodesInOrderTraversal(node->left);
-    std::cout << node->value << " ";
+    cout << node->value << " ";
     if (node->right)
         PrintNodesInOrderTraversal(node->right);
 }
 
 void BinarySearchTree::PrintNodesGraphically(Node* node)
 {
-    std::cout << "Node: " << node->value
-        << "  Left: " << (node->left != 0 ? std::to_string(node->left->value) : "Null")
-        << "  Right: " << (node->right != 0 ? std::to_string(node->right->value) : "Null")
-        << "  Parent: " << (node->parent != 0 ? std::to_string(node->parent->value) : "Null") << std::endl;
+    cout << "Node: " << node->value
+        << "  Left: " << (node->left != 0 ? to_string(node->left->value) : "Null")
+        << "  Right: " << (node->right != 0 ? to_string(node->right->value) : "Null")
+        << "  Parent: " << (node->parent != 0 ? to_string(node->parent->value) : "Null") << endl;
     if (node->left)
         PrintNodesGraphically(node->left);
     if (node->right)
@@ -221,38 +216,38 @@ BinarySearchTree::Node::~Node()
         right->parent = 0;
 }
 
-void BinarySearchTree::Node::SetAsLeftChildOf(Node* parent)
+void BinarySearchTree::Node::SetAsLeftChildOf(Node* newParent)
 {
     if (parent == this)
-        throw std::invalid_argument("A node cannot be its own child.");
+        throw invalid_argument("A node cannot be its own child.");
 
-    parent->left = this;
-    parent = parent;
+    newParent->left = this;
+    parent = newParent;
 }
 
-void BinarySearchTree::Node::SetAsRightChildOf(Node* parent)
+void BinarySearchTree::Node::SetAsRightChildOf(Node* newParent)
 {
     if (parent == this)
-        throw std::invalid_argument("A node cannot be its own child.");
+        throw invalid_argument("A node cannot be its own child.");
 
-    parent->right = this;
-    parent = parent;
+    newParent->right = this;
+    parent = newParent;
 }
 
 void Test1(BinarySearchTree& tree)
 {
-    std::cout << "Testing Insert..." << std::endl;
+    cout << "Testing Insert..." << endl;
 
-    std::cout << "Insert(3)" << std::endl;
+    cout << "Insert(3)" << endl;
     tree.Insert(3);
     tree.PrintGraphically();
 
-    std::cout << "Insert(2, 7)" << std::endl;
+    cout << "Insert(2, 7)" << endl;
     tree.Insert(2);
     tree.Insert(7);
     tree.PrintGraphically();
 
-    std::cout << "Insert(9, 4, 8, 1, 5, 6, 0)" << std::endl;
+    cout << "Insert(9, 4, 8, 1, 5, 6, 0)" << endl;
     tree.Insert(9);
     tree.Insert(4);
     tree.Insert(8);
@@ -267,10 +262,10 @@ void Test1(BinarySearchTree& tree)
 
 void Test2(BinarySearchTree& tree)
 {
-    std::cout << "Testing Case 1 of Delete..." << std::endl;
+    cout << "Testing Case 1 of Delete..." << endl;
     tree.Insert({ 44, 17, 88, 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Delete(97)" << std::endl;
+    cout << "Delete(97)" << endl;
     tree.Delete(97);
     tree.PrintGraphically();
 
@@ -279,10 +274,10 @@ void Test2(BinarySearchTree& tree)
 
 void Test3(BinarySearchTree& tree)
 {
-    std::cout << "Testing Case 2 of Delete..." << std::endl;
+    cout << "Testing Case 2 of Delete..." << endl;
     tree.Insert({ 44, 17, 88, 65, 82, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Delete(65)" << std::endl;
+    cout << "Delete(65)" << endl;
     tree.Delete(65);
     tree.PrintGraphically();
 
@@ -291,10 +286,10 @@ void Test3(BinarySearchTree& tree)
 
 void Test4(BinarySearchTree& tree)
 {
-    std::cout << "Testing Case 3 of Delete..." << std::endl;
+    cout << "Testing Case 3 of Delete..." << endl;
     tree.Insert({ 44, 17, 88, 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Delete(88)" << std::endl;
+    cout << "Delete(88)" << endl;
     tree.Delete(88);
     tree.PrintGraphically();
 
@@ -303,10 +298,10 @@ void Test4(BinarySearchTree& tree)
 
 void Test5(BinarySearchTree& tree)
 {
-    std::cout << "Testing Case 4 of Delete..." << std::endl;
+    cout << "Testing Case 4 of Delete..." << endl;
     tree.Insert({ 44, 17, 88, 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Delete(80)" << std::endl;
+    cout << "Delete(80)" << endl;
     tree.Delete(80);
     tree.PrintGraphically();
 
@@ -315,15 +310,15 @@ void Test5(BinarySearchTree& tree)
 
 void Test6(BinarySearchTree& tree)
 {
-    std::cout << "Testing Delete on root..." << std::endl;
+    cout << "Testing Delete on root..." << endl;
     tree.Insert({ 44, 17, 88 });
     tree.PrintGraphically();
-    std::cout << "Delete(44)" << std::endl;
+    cout << "Delete(44)" << endl;
     tree.Delete(44);
-    std::cout << "Insert(65, 82, 54, 76, 68, 80, 97, 93)" << std::endl;
+    cout << "Insert(65, 82, 54, 76, 68, 80, 97, 93)" << endl;
     tree.Insert({ 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Delete(17)" << std::endl;
+    cout << "Delete(17)" << endl;
     tree.Delete(17);
     tree.PrintGraphically();
 
@@ -332,19 +327,19 @@ void Test6(BinarySearchTree& tree)
 
 void Test7(BinarySearchTree& tree)
 {
-    std::cout << "Testing Search..." << std::endl;
+    cout << "Testing Search..." << endl;
 
     tree.Insert({ 44, 17, 88, 65, 82, 54, 76, 68, 80, 97, 93 });
     tree.PrintGraphically();
-    std::cout << "Search(88)" << std::endl;
+    cout << "Search(88)" << endl;
     int* result = tree.Search(88);
-    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
-    std::cout << "Search(13)" << std::endl;
+    cout << "Result = " + (result ? to_string(*result) : "Null") << endl;
+    cout << "Search(13)" << endl;
     result = tree.Search(13);
-    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
-    std::cout << "Search(44)" << std::endl;
+    cout << "Result = " + (result ? to_string(*result) : "Null") << endl;
+    cout << "Search(44)" << endl;
     result = tree.Search(44);
-    std::cout << "Result = " + (result ? std::to_string(*result) : "Null") << std::endl;
+    cout << "Result = " + (result ? to_string(*result) : "Null") << endl;
 
     tree.Clear();
 }
