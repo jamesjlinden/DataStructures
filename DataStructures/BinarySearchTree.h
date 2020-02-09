@@ -16,8 +16,7 @@ public:
 
     void Insert(int element);
 
-    template <typename T>
-    void Insert(std::initializer_list<T> elements);
+    template <typename T> void Insert(std::initializer_list<T> elements);
 
     int* Search(int value);
 
@@ -28,6 +27,7 @@ public:
     void PrintInOrderTraversal();
 
     void PrintGraphically();
+
 private:
     class Node;
 
