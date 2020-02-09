@@ -22,8 +22,8 @@
 
 using namespace std;
 
-template<class iteratorType>
-void PrintCollection(iteratorType begin, iteratorType end)
+template<class IteratorType>
+void PrintCollection(IteratorType begin, IteratorType end)
 {
     for (auto iter = begin; iter != end; ++iter)
     {
@@ -102,6 +102,10 @@ void RunAlgorithmDemo()
     auto adjacentFindResult = adjacent_find(wordsVector1.begin(), wordsVector1.end(), doesFirstLetterMatch);
     for (adjacentFindResult; adjacentFindResult != wordsVector1.end(); ++adjacentFindResult);
         cout << *adjacentFindResult << endl;
+
+    cout << "mismatch(wordsVector1.begin(), wordsVector1.end(), wordsVector2.begin(), wordsVector2.end())" << endl;
+    auto mismatchResult = mismatch(wordsVector1.begin(), wordsVector1.end(), wordsVector2.begin(), wordsVector2.end());
+    cout << (*mismatchResult.first) << endl;
 
     // Modifying sequence operations
     cout << "intArray copy()" << endl;
