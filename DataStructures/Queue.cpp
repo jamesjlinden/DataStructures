@@ -1,92 +1,100 @@
 #include "pch.h"
+#include "Queue.h"
+#include <iostream>
 
 // Queue as implemented with an array (linked list implementation is also possible).
 
+using namespace std;
+
 template <typename T>
-class Queue
+Queue<T>::Queue() : elementCount_(0), elementCapacity_(0), frontIndex_(0), backIndex_(0), container_(0)
 {
-public:
-    Queue() : elementCount_(0), elementCapacity_(0), frontIndex_(0), backIndex_(0)
+}
+
+template <typename T>
+Queue<T>::~Queue()
+{
+    delete[] container_;
+}
+
+template <typename T>
+int Queue<T>::GetCount() { return elementCount_; }
+
+template <typename T>
+int Queue<T>::GetCapacity() { return elementCapacity_; }
+
+template <typename T>
+T* Queue<T>::GetFront() { return container_[frontIndex_]; }
+
+template <typename T>
+T* Queue<T>::GetBack() { return container_[backIndex_]; }
+
+template <typename T>
+void Queue<T>::Push(T element)
+{
+    if (elementCount_ == elementCapacity_)
+        GrowContainer();
+
+    int indexToInsertAt = (frontIndex_ + elementCount_) % elementCapacity_;
+    container_[indexToInsertAt] = element;
+    backIndex_ = indexToInsertAt;
+
+    ++elementCount_;
+}
+
+template <typename T>
+T* Queue<T>::Pop()
+{
+    if (elementCount_ == 0)
+        return 0;
+
+    // Get the element we're popping
+    T* elementToPop = &container_[frontIndex_];
+
+    // Get next front index
+    int nextFrontIndex = (frontIndex_ + 1) % elementCapacity_;
+    frontIndex_ = nextFrontIndex;
+
+    // Decrement count
+    --elementCount_;
+
+    return elementToPop;
+}
+
+template <typename T>
+void Queue<T>::Clear()
+{
+    while (elementCount_ > 0)
+        Pop();
+}
+
+template <typename T>
+void Queue<T>::GrowContainer()
+{
+    int oldCapacity = elementCapacity_;
+    // Double elementCapacity by power of 2 if non-zero, otherwise increment to 1.
+    elementCapacity_ = elementCapacity_ == 0 ? 1 : elementCapacity_ << 1;
+
+    // Allocate new array
+    T* newContainer = new T[elementCapacity_];
+
+    // Copy elements from old array into new array
+    for (int i = 0; i < elementCount_; ++i)
     {
+        int containerIndexRelativeToFront = (frontIndex_ + i) % elementCount_;
+
+        // elementCount is guaranteed to be smaller than elementCapacity since we immediately increment
+        // capacity to the next power of 2 any time elementCount == elementCapacity. This warning can be disregarded.
+        newContainer[i] = container_[containerIndexRelativeToFront]; 
     }
 
-    ~Queue()
-    {
-        delete[] container_;
-    }
+    // Set front and back to new array's beginning and ending
+    frontIndex_ = 0;
+    backIndex_ = ((elementCount_ - 1) < 0) ? 0 : (elementCount_ - 1);
 
-    int GetCount() { return elementCount_; }
-    int GetCapacity() { return elementCapacity_; }
-    T* GetFront() { return container_[frontIndex_]; }
-    T* GetBack() { return container_[backIndex_]; }
-
-    void Push(T element)
-    {
-        if (elementCount_ == elementCapacity_)
-            GrowContainer();
-
-        int indexToInsertAt = (frontIndex_ + elementCount_) % elementCapacity_;
-        container_[indexToInsertAt] = element;
-        backIndex_ = indexToInsertAt;
-
-        ++elementCount_;
-    }
-
-    T* Pop()
-    {
-        if (elementCount_ == 0)
-            return 0;
-
-        // Get the element we're popping
-        T *elementToPop = &container_[frontIndex_];
-
-        // Get next front index
-        int nextFrontIndex = (frontIndex_ + 1) % elementCapacity_;
-        frontIndex_ = nextFrontIndex;
-
-        // Decrement count
-        --elementCount_;
-
-        return elementToPop;
-    }
-
-    void Clear()
-    {
-        while (elementCount_ > 0)
-            Pop();
-    }
-
-private:
-    void GrowContainer()
-    {
-        int oldCapacity = elementCapacity_;
-        // Double elementCapacity by power of 2 if non-zero, otherwise increment to 1.
-        elementCapacity_ = elementCapacity_ == 0 ? 1 : elementCapacity_ << 1;
-
-        // Allocate new array
-        auto newContainer = new T[elementCapacity_];
-
-        // Copy elements from old array into new array
-        for (int i = 0; i < elementCount_; ++i)
-        {
-            int containerIndexRelativeToFront = (frontIndex_ + i) % elementCount_;
-            newContainer[i] = container_[containerIndexRelativeToFront];
-        }
-
-        // Set front and back to new array's beginning and ending
-        frontIndex_ = 0;
-        backIndex_ = ((elementCount_ - 1) < 0) ? 0 : (elementCount_ - 1);
-
-        delete[] container_;
-        container_ = newContainer;
-    }
-
-    T *container_;
-    int elementCount_;
-    int elementCapacity_;
-    int frontIndex_;
-    int backIndex_;
-};
+    delete[] container_;
+    container_ = newContainer;
+}
 
 void RunQueueDriver()
 {
@@ -121,7 +129,7 @@ void RunQueueDriver()
     queue.Push(1);
     queue.Push(4);
     queue.Push(7);
-    
+
     std::cout << "Count: " << queue.GetCount() << std::endl;
     std::cout << "Capacity: " << queue.GetCapacity() << std::endl;
 
@@ -157,7 +165,7 @@ void RunQueueDriver()
 
     std::cout << "Count: " << queue.GetCount() << std::endl;
     std::cout << "Capacity: " << queue.GetCapacity() << std::endl;
-    
+
     std::cout << std::endl;
 
     // Testing Clear()

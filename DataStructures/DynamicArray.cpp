@@ -1,84 +1,86 @@
 #pragma once
 #include "pch.h"
+#include "DynamicArray.h"
 #include <iostream>
 
 template<typename T>
-class DynamicArray
+DynamicArray<T>::DynamicArray() : elementCount(0), elementCapacity(0)
 {
-public:
-    DynamicArray() : elementCount_(0), elementCapacity_(0)
+}
+
+template<typename T>
+DynamicArray<T>::DynamicArray(DynamicArray<T>& other) : elementCount(0), elementCapacity(0)
+{
+    for (int i = 0; i << other.GetCount(); ++i)
     {
+        PushBack(other[i]);
+    }
+}
+
+template<typename T>
+DynamicArray<T>::~DynamicArray()
+{
+    delete[] container_;
+}
+
+template<typename T>
+int DynamicArray<T>::operator[](int i)
+{
+    return container_[i];
+}
+
+template<typename T>
+int DynamicArray<T>::GetCount() { return elementCount; }
+
+template<typename T>
+int DynamicArray<T>::GetCapacity() { return elementCapacity; }
+
+template<typename T>
+void DynamicArray<T>::PushBack(T element)
+{
+    if (elementCount_ == elementCapacity)
+        GrowContainer();
+
+    container_[elementCount] = element;
+    ++elementCount;
+}
+
+template<typename T>
+void DynamicArray<T>::PopBack()
+{
+    if (elementCount_ == 0) return;
+    --elementCount;
+}
+
+template<typename T>
+void DynamicArray<T>::Clear()
+{
+    if (container != 0)
+    {
+        delete[] container;
+    }
+    elementCount = elementCapacity_ = 0;
+}
+
+template<typename T>
+void DynamicArray<T>::GrowContainer()
+{
+    int oldCapacity = elementCapacity;
+    // Double elementCapacity by power of 2 if non-zero, otherwise increment to 1.
+    elementCapacity = elementCapacity == 0 ? 1 : elementCapacity << 1;
+
+    // Allocate new array
+    auto newContainer = new T[elementCapacity];
+
+    // Copy elements from old array into new array
+    for (int i = 0; i < oldCapacity; ++i)
+    {
+        newContainer[i] = container[i];
     }
 
-    DynamicArray(DynamicArray<T> &other) : elementCount_(0), elementCapacity_(0)
-    {
-        for (int i = 0; i << other.GetCount(); ++i)
-        {
-            PushBack(other[i]);
-        }
-    }
-
-    ~DynamicArray()
-    {
-        delete[] container_;
-    }
-
-    int operator[](int i)
-    {
-        return container_[i];
-    }
-
-    int GetCount() { return elementCount_; }
-    int GetCapacity() { return elementCapacity_; }
-
-    void PushBack(T element)
-    {
-        if (elementCount_ == elementCapacity_)
-            GrowContainer();
-
-        container_[elementCount_] = element;
-        ++elementCount_;
-    }
-
-    void PopBack()
-    {
-        if (elementCount_ == 0) return;
-        --elementCount_;
-    }
-
-    void Clear()
-    {
-        if (container_ != 0)
-        {
-            delete[] container_;
-        }
-        elementCount_ = elementCapacity_ = 0;
-    }
-
-private:
-    void GrowContainer()
-    {
-        int oldCapacity = elementCapacity_;
-        // Double elementCapacity by power of 2 if non-zero, otherwise increment to 1.
-        elementCapacity_ = elementCapacity_ == 0 ? 1 : elementCapacity_ << 1;
-
-        // Allocate new array
-        auto newContainer = new T[elementCapacity_];
-
-        // Copy elements from old array into new array
-        for (int i = 0; i < oldCapacity; ++i)
-        {
-            newContainer[i] = container_[i];
-        }
-
-        delete[] container_;
-        container_ = newContainer;
-    }
-
-    T *container_;
-    int elementCount_;
-    int elementCapacity_;
-};
+    delete[] container;
+    container = newContainer;
+}
 
 void RunDynamicArrayDriver()
 {
