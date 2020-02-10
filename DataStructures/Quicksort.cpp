@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Quicksort.h"
+#include "QuickSort.h"
 #include "ContainerHelpers.h"
 #include <algorithm>
 #include <iostream>
@@ -9,29 +9,34 @@ using namespace std;
 int Partition(vector<int>& sequence, int low, int high)
 {
     int pivot = sequence[high];
-    int i = low - 1;
+    int lessThanSequenceIndex = low - 1;
 
-    for (int j = low; j <= high; ++j)
+    // Break into two subsequences: lessThanSequence followed by greaterThanSequence followed by the pivot
+    for (int greaterThanSequenceIndex = low; greaterThanSequenceIndex <= high; ++greaterThanSequenceIndex)
     {
-        if (sequence[j] < pivot)
+        if (sequence[greaterThanSequenceIndex] < pivot)
         {
-            ++i;
-            swap(sequence[i], sequence[j]);
+            ++lessThanSequenceIndex;
+            swap(sequence[lessThanSequenceIndex], sequence[greaterThanSequenceIndex]);
         }
     }
 
-    swap(sequence[static_cast<size_t>(i) + 1], sequence[high]);
-    return i + 1;
+    swap(sequence[static_cast<size_t>(lessThanSequenceIndex) + 1], sequence[high]);
+
+    cout << "Partition() sequence = " << ContainerToString(sequence.begin(), sequence.end())
+        << " low = " << low << " high = " << high << endl;
+
+    return lessThanSequenceIndex + 1;
 }
 
 void Quicksort(vector<int>& sequence, int low, int high)
 {
     if (low < high)
     {
-        int partitionIndex = Partition(sequence, low, high);
+        int pivotIndex = Partition(sequence, low, high);
 
-        Quicksort(sequence, low, partitionIndex - 1);
-        Quicksort(sequence, partitionIndex + 1, high);
+        Quicksort(sequence, low, pivotIndex - 1);
+        Quicksort(sequence, pivotIndex + 1, high);
     }
 }
 

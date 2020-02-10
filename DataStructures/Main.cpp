@@ -9,11 +9,12 @@
 #include "BinarySearchTree.h"
 #include "StdlibAlgorithmDemo.h"
 #include "MergeSort.h"
-#include "Quicksort.h"
+#include "QuickSort.h"
+#include "HeapSort.h"
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunQuicksortDriver();
+    RunHeapSortDriver();
 }
