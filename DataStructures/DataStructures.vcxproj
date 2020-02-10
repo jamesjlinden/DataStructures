@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="ContainerHelpers.h" />
     <ClInclude Include="DynamicArray.cpp" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="MergeSort.h" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearchTree.cpp" />
+    <ClCompile Include="ContainerHelpers.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MergeSort.cpp" />
     <ClCompile Include="pch.cpp">
