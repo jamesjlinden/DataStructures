@@ -6,37 +6,31 @@
 
 using namespace std;
 
-int Partition(vector<int>& sequence, int low, int high)
+int Partition(vector<int>& sequence, int minIndex, int maxIndex)
 {
-    int pivot = sequence[high];
-    int lessThanSequenceIndex = low - 1;
-
-    // Break into two subsequences: lessThanSequence followed by greaterThanSequence followed by the pivot
-    for (int greaterThanSequenceIndex = low; greaterThanSequenceIndex <= high; ++greaterThanSequenceIndex)
+    int pivot = sequence[maxIndex];
+    int storeIndex = minIndex - 1;
+    for (int i = minIndex; i < maxIndex; ++i)
     {
-        if (sequence[greaterThanSequenceIndex] < pivot)
+        if (sequence[i] <= pivot)
         {
-            ++lessThanSequenceIndex;
-            swap(sequence[lessThanSequenceIndex], sequence[greaterThanSequenceIndex]);
+            ++storeIndex;
+            swap(sequence[storeIndex], sequence[i]);
         }
     }
 
-    swap(sequence[static_cast<size_t>(lessThanSequenceIndex) + 1], sequence[high]);
-
-    cout << "Partition() sequence = " << ContainerToString(sequence.begin(), sequence.end())
-        << " low = " << low << " high = " << high << endl;
-
-    return lessThanSequenceIndex + 1;
+    swap(sequence[static_cast<size_t>(storeIndex) + 1], sequence[maxIndex]);
+    return storeIndex + 1;
 }
 
-void Quicksort(vector<int>& sequence, int low, int high)
+void QuickSort(vector<int>& sequence, int minIndex, int maxIndex)
 {
-    if (low < high)
+    if (minIndex < maxIndex)
     {
-        int pivotIndex = Partition(sequence, low, high);
+        int pivotIndex = Partition(sequence, minIndex, maxIndex);
 
-        Quicksort(sequence, low, pivotIndex - 1);
-        Quicksort(sequence, pivotIndex + 1, high);
+        QuickSort(sequence, minIndex, pivotIndex - 1);
+        QuickSort(sequence, pivotIndex + 1, minIndex);
     }
 }
 
@@ -48,7 +42,7 @@ void RunQuicksortDriver()
 
     cout << "Quicksort sequence1..." << endl;
 
-    Quicksort(sequence1, 0, static_cast<int>(sequence1.size()) - 1);
+    QuickSort(sequence1, 0, static_cast<int>(sequence1.size()) - 1);
 
     PrintContainer(sequence1.begin(), sequence1.end());
 }
