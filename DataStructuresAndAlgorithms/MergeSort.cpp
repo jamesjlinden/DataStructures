@@ -6,81 +6,70 @@
 
 using namespace std;
 
-void Merge(vector<int>& sequence, unsigned leftIndex, unsigned middleIndex, unsigned rightIndex);
-void MergeSortRecursively(vector<int>& sequence, unsigned leftIndex, unsigned rightIndex);
-
-void MergeSort(vector<int>& sequence)
+void Merge(vector<int>& sequence, unsigned minIndex, unsigned midIndex, unsigned maxIndex)
 {
-    MergeSortRecursively(sequence, 0, static_cast<int>(sequence.size() - 1));
-}
+    // We always merge two sorted subarrays a[min...mid], a[mid + 1...max] as a[min...max]
+    vector<int> minToMidSubsequence(static_cast<size_t>(midIndex - minIndex) + 1);
+    vector<int> midPlus1ToMaxSubsequence(static_cast<size_t>(maxIndex - midIndex));
 
-void MergeSortRecursively(vector<int>& sequence, unsigned leftIndex, unsigned rightIndex)
-{
-    cout << "MergeSort() sequence = " << ContainerToString(sequence.begin(), sequence.end())
-        << " leftIndex = " << leftIndex << " rightIndex = " << rightIndex << endl;
+    for (size_t i = 0; i < minToMidSubsequence.size(); ++i)
+        minToMidSubsequence[i] = sequence[i + minIndex];
+    for (size_t i = 0; i < midPlus1ToMaxSubsequence.size(); ++i)
+        midPlus1ToMaxSubsequence[i] = sequence[i + midIndex + 1];
 
-    if (leftIndex < rightIndex)
+    int minToMidIter = 0, midPlus1ToMaxIter = 0, mergedSequenceIter = minIndex - 1;
+
+    while (minToMidIter < minToMidSubsequence.size() && midPlus1ToMaxIter < midPlus1ToMaxSubsequence.size())
     {
-        int middleIndex = leftIndex + ((rightIndex - leftIndex) / 2);
-
-        cout << "middleIndex = " << middleIndex << endl;
-
-        MergeSortRecursively(sequence, leftIndex, middleIndex);
-        MergeSortRecursively(sequence, middleIndex + 1, rightIndex);
-        Merge(sequence, leftIndex, middleIndex, rightIndex);
-    }
-}
-
-void Merge(vector<int>& sequence, unsigned leftIndex, unsigned middleIndex, unsigned rightIndex)
-{
-    cout << "Merge() sequence = " << ContainerToString(sequence.begin(), sequence.end())
-        << " leftIndex = " << leftIndex 
-        << " middleIndex = " << middleIndex
-        << " rightIndex = " << rightIndex << endl;
-
-    vector<int> leftSequence(static_cast<size_t>(middleIndex - leftIndex) + 1);
-    vector<int> rightSequence(rightIndex - middleIndex);
-
-    for (unsigned i = 0; i < leftSequence.size(); ++i)
-        leftSequence[i] = sequence[static_cast<size_t>(leftIndex) + i];
-    for (unsigned i = 0; i < rightSequence.size(); ++i)
-        rightSequence[i] = sequence[static_cast<size_t>(middleIndex) + 1 + i];
-        
-    int i = 0, j = 0, k = leftIndex; // Left, right, final array iterator indices
-    while (i < leftSequence.size() && j < rightSequence.size())
-    {
-        if (leftSequence[i] <= rightSequence[j])
+        if (minToMidSubsequence[minToMidIter] <= midPlus1ToMaxSubsequence[midPlus1ToMaxIter])
         {
-            sequence[k] = leftSequence[i];
-            ++i;
+            ++mergedSequenceIter;
+            sequence[mergedSequenceIter] = minToMidSubsequence[minToMidIter];
+            ++minToMidIter;
         }
         else
         {
-            sequence[k] = rightSequence[j];
-            ++j;
+            ++mergedSequenceIter;
+            sequence[mergedSequenceIter] = midPlus1ToMaxSubsequence[midPlus1ToMaxIter];
+            ++midPlus1ToMaxIter;
         }
-        ++k;
     }
 
-    while (i < leftSequence.size())
+    while (minToMidIter < minToMidSubsequence.size())
     {
-        sequence[k] = leftSequence[i];
-        ++i;
-        ++k;
+        ++mergedSequenceIter;
+        sequence[mergedSequenceIter] = minToMidSubsequence[minToMidIter];
+        ++minToMidIter;
     }
 
-    while (j < rightSequence.size())
+    while (midPlus1ToMaxIter < midPlus1ToMaxSubsequence.size())
     {
-        sequence[k] = rightSequence[j];
-        ++j;
-        ++k;
+        ++mergedSequenceIter;
+        sequence[mergedSequenceIter] = midPlus1ToMaxSubsequence[midPlus1ToMaxIter];
+        ++midPlus1ToMaxIter;
     }
+}
+
+void MergeSortRecursively(vector<int>& sequence, unsigned minIndex, unsigned maxIndex)
+{
+    if (minIndex < maxIndex)
+    {
+        int midIndex = minIndex + (maxIndex - minIndex) / 2;
+        MergeSortRecursively(sequence, minIndex, midIndex);
+        MergeSortRecursively(sequence, midIndex + 1, maxIndex);
+        Merge(sequence, minIndex, midIndex, maxIndex);
+    }
+}
+
+void MergeSort(vector<int>& sequence)
+{
+    MergeSortRecursively(sequence, 0, static_cast<unsigned>(sequence.size()) - 1);
 }
 
 void Test1()
 {
     vector<int> sequence1 = { 38, 27 };
-    
+
     cout << ContainerToString(sequence1.begin(), sequence1.end()) << endl;
     cout << "Sorting sequence1..." << endl;
     MergeSort(sequence1);
