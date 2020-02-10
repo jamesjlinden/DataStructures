@@ -2,13 +2,12 @@
 #include "MergeSort.h"
 #include <iostream>
 #include <string>
+#include "ContainerHelpers.h"
 
 using namespace std;
 
 void Merge(vector<int>& sequence, unsigned leftIndex, unsigned middleIndex, unsigned rightIndex);
 void MergeSortRecursively(vector<int>& sequence, unsigned leftIndex, unsigned rightIndex);
-template<typename IteratorType>
-string ContainerToString(IteratorType begin, IteratorType end);
 
 void MergeSort(vector<int>& sequence)
 {
@@ -76,15 +75,6 @@ void Merge(vector<int>& sequence, unsigned leftIndex, unsigned middleIndex, unsi
         ++j;
         ++k;
     }
-}
-
-template<typename IteratorType>
-string ContainerToString(IteratorType begin, IteratorType end)
-{
-    string str = "";
-    for (auto iter = begin; iter != end; ++iter)
-        str.append(to_string(*iter)).append(" ");
-    return str;
 }
 
 void Test1()
