@@ -11,11 +11,12 @@
 #include "MergeSort.h"
 #include "QuickSort.h"
 #include "HeapSort.h"
-#include "InsertionSort.h"
+#include "BubbleSort.h"
+#include "SelectionSort.h"
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunInsertionSortDriver();
+    RunSelectionSortDriver();
 }

@@ -13,15 +13,15 @@ void InsertionSort(vector<int>& a)
 
     for (int i = 1; i < a.size(); ++i)
     {
-        int currElement = a[i];
+        int key = a[i];
 
         int j = i - 1;
-        while (j >= 0 && currElement < a[j])
+        while (j >= 0 && key < a[j])
         {
-            a[static_cast<size_t>(j + 1)] = a[j];
+            a[static_cast<size_t>(j) + 1] = a[j];
             --j;
         }
-        a[static_cast<size_t>(j + 1)] = currElement;
+        a[static_cast<size_t>(j) + 1] = key;
     }
 }
 
