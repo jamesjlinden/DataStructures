@@ -159,23 +159,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BubbleSort.h" />
     <ClInclude Include="ContainerHelpers.h" />
     <ClInclude Include="DynamicArray.cpp" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="HeapSort.h" />
+    <ClInclude Include="InsertionSort.h" />
     <ClInclude Include="MergeSort.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Queue.cpp" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QuickSort.h" />
+    <ClInclude Include="SelectionSort.h" />
     <ClInclude Include="SinglyLinkedList.cpp" />
     <ClInclude Include="SinglyLinkedList.h" />
     <ClInclude Include="StdlibAlgorithmDemo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearchTree.cpp" />
+    <ClCompile Include="BubbleSort.cpp" />
     <ClCompile Include="ContainerHelpers.cpp" />
     <ClCompile Include="HeapSort.cpp" />
+    <ClCompile Include="InsertionSort.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MergeSort.cpp" />
     <ClCompile Include="pch.cpp">
@@ -185,6 +190,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="QuickSort.cpp" />
+    <ClCompile Include="SelectionSort.cpp" />
     <ClCompile Include="StdlibAlgorithmDemo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
