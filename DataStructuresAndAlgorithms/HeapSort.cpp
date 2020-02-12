@@ -6,37 +6,35 @@
 
 using namespace std;
 
-void Heapify(vector<int> &arr, int n, int i)
+void Heapify(vector<int> &a, int n, int rootIndex)
 {
-    // Find largest among root, left child and right child
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
-    // Swap and continue heapifying if root is not largest
-    if (largest != i)
+    int largestIndex = rootIndex;
+    int leftIndex = 2 * rootIndex + 1;
+    int rightIndex = 2 * rootIndex + 2;
+    
+    if (leftIndex < n && a[leftIndex] > a[largestIndex])
+        largestIndex = leftIndex;
+    if (rightIndex < n && a[rightIndex] > a[largestIndex])
+        largestIndex = rightIndex;
+
+    if (a[largestIndex] > a[rootIndex])
     {
-        swap(arr[i], arr[largest]);
-        Heapify(arr, n, largest);
+        swap(a[rootIndex], a[largestIndex]);
+        Heapify(a, n, largestIndex);
     }
 }
 
-// main function to do heap sort
-void HeapSort(vector<int> &arr, int n)
+void HeapSort(vector<int>& a, int n)
 {
-    // Build max heap
-    for (int i = n / 2 - 1; i >= 0; i--)
-        Heapify(arr, n, i);
-    // Heap sort
-    for (int i = n - 1; i >= 0; i--)
-    {
-        swap(arr[0], arr[i]);
+    // Build a max heap out of array
+    for (int rootIndex = n / 2 - 1; rootIndex >= 0; --rootIndex) // No need to heapify leaf nodes, start at n / 2 - 1 (first node with leaves
+        Heapify(a, n, rootIndex);
 
-        // Heapify root element to get highest element at root again
-        Heapify(arr, i, 0);
+    // Move root to the end of the array, heapify resulting array, repeat until one node left in tree
+    for (int i = n - 1; i >= 0; --i)
+    {
+        swap(a[0], a[i]);
+        Heapify(a, i, 0);
     }
 }
 
