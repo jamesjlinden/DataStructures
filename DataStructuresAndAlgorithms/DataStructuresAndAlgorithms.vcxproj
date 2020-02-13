@@ -161,6 +161,7 @@
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BubbleSort.h" />
     <ClInclude Include="ContainerHelpers.h" />
+    <ClInclude Include="CountingSort.h" />
     <ClInclude Include="DynamicArray.cpp" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="HeapSort.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="BubbleSort.cpp" />
     <ClCompile Include="ContainerHelpers.cpp" />
+    <ClCompile Include="CountingSort.cpp" />
     <ClCompile Include="HeapSort.cpp" />
     <ClCompile Include="InsertionSort.cpp" />
     <ClCompile Include="Main.cpp" />

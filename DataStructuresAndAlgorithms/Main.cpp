@@ -14,10 +14,11 @@
 #include "BubbleSort.h"
 #include "SelectionSort.h"
 #include "ShellSort.h"
+#include "CountingSort.h"
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunShellSortDriver();
+    RunCountingSortDriver();
 }
