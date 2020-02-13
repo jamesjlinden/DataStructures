@@ -27,3 +27,9 @@ template void PrintContainer<std::vector<int>::iterator>(std::vector<int>::itera
 
 template string ContainerToString<std::vector<int>::iterator>(std::vector<int>::iterator begin, 
     std::vector<int>::iterator end);
+
+template void PrintContainer<std::vector<float>::iterator>(std::vector<float>::iterator begin,
+    std::vector<float>::iterator end);
+
+template string ContainerToString<std::vector<float>::iterator>(std::vector<float>::iterator begin,
+    std::vector<float>::iterator end);
