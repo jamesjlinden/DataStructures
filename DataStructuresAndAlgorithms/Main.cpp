@@ -13,10 +13,11 @@
 #include "HeapSort.h"
 #include "BubbleSort.h"
 #include "SelectionSort.h"
+#include "ShellSort.h"
 
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunSelectionSortDriver();
+    RunShellSortDriver();
 }

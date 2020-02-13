@@ -171,6 +171,7 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QuickSort.h" />
     <ClInclude Include="SelectionSort.h" />
+    <ClInclude Include="ShellSort.h" />
     <ClInclude Include="SinglyLinkedList.cpp" />
     <ClInclude Include="SinglyLinkedList.h" />
     <ClInclude Include="StdlibAlgorithmDemo.h" />
@@ -191,6 +192,7 @@
     </ClCompile>
     <ClCompile Include="QuickSort.cpp" />
     <ClCompile Include="SelectionSort.cpp" />
+    <ClCompile Include="ShellSort.cpp" />
     <ClCompile Include="StdlibAlgorithmDemo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
