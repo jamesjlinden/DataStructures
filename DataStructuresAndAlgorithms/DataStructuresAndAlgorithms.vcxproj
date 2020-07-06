@@ -159,11 +159,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="BreadthFirstSearch.h" />
     <ClInclude Include="BubbleSort.h" />
     <ClInclude Include="BucketSort.h" />
     <ClInclude Include="ContainerHelpers.h" />
     <ClInclude Include="CountingSort.h" />
-    <ClInclude Include="DynamicArray.cpp" />
+    <ClInclude Include="DepthFirstSearch.h" />
+    <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="HeapSort.h" />
     <ClInclude Include="InsertionSort.h" />
@@ -181,10 +183,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearchTree.cpp" />
+    <ClCompile Include="BreadthFirstSearch.cpp" />
     <ClCompile Include="BubbleSort.cpp" />
     <ClCompile Include="BucketSort.cpp" />
     <ClCompile Include="ContainerHelpers.cpp" />
     <ClCompile Include="CountingSort.cpp" />
+    <ClCompile Include="DepthFirstSearch.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="DynamicArray.cpp" />
     <ClCompile Include="HeapSort.cpp" />
     <ClCompile Include="InsertionSort.cpp" />
     <ClCompile Include="Main.cpp" />

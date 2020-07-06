@@ -17,10 +17,11 @@
 #include "CountingSort.h"
 #include "RadixSort.h"
 #include "BucketSort.h"
+#include "Dijkstra.h"
+#include "BreadthFirstSearch.h"
 
-int main()
-{
+int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunBucketSortDriver();
+    RunDynamicArrayDriver();
 }

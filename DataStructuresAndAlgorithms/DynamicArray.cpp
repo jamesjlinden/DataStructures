@@ -4,29 +4,19 @@
 #include <iostream>
 
 template<typename T>
-DynamicArray<T>::DynamicArray() : elementCount(0), elementCapacity(0)
-{
+DynamicArray<T>::DynamicArray() : elementCount(0), elementCapacity(0) {
 }
 
 template<typename T>
-DynamicArray<T>::DynamicArray(DynamicArray<T>& other) : elementCount(0), elementCapacity(0)
-{
-    for (int i = 0; i << other.GetCount(); ++i)
-    {
+DynamicArray<T>::DynamicArray(DynamicArray<T>& other) : elementCount(0), elementCapacity(0) {
+    for (int i = 0; i << other.GetCount(); ++i) {
         PushBack(other[i]);
     }
 }
 
 template<typename T>
-DynamicArray<T>::~DynamicArray()
-{
-    delete[] container_;
-}
-
-template<typename T>
-int DynamicArray<T>::operator[](int i)
-{
-    return container_[i];
+T DynamicArray<T>::operator[](int i) {
+    return *container[i];
 }
 
 template<typename T>
@@ -36,54 +26,50 @@ template<typename T>
 int DynamicArray<T>::GetCapacity() { return elementCapacity; }
 
 template<typename T>
-void DynamicArray<T>::PushBack(T element)
-{
-    if (elementCount_ == elementCapacity)
+void DynamicArray<T>::PushBack(T element) {
+    if (elementCount == elementCapacity)
         GrowContainer();
 
-    container_[elementCount] = element;
+    if (container[elementCount] == nullptr)
+        container[elementCount] = std::make_unique<T>(element);
+    else
+        *container[elementCount] = element;
+    
     ++elementCount;
 }
 
 template<typename T>
-void DynamicArray<T>::PopBack()
-{
-    if (elementCount_ == 0) return;
+void DynamicArray<T>::PopBack() {
+    if (elementCount == 0) return;
     --elementCount;
 }
 
 template<typename T>
-void DynamicArray<T>::Clear()
-{
-    if (container != 0)
-    {
+void DynamicArray<T>::Clear() {
+    if (container != 0) {
         delete[] container;
     }
-    elementCount = elementCapacity_ = 0;
+    elementCount = elementCapacity = 0;
 }
 
 template<typename T>
-void DynamicArray<T>::GrowContainer()
-{
+void DynamicArray<T>::GrowContainer() {
     int oldCapacity = elementCapacity;
     // Double elementCapacity by power of 2 if non-zero, otherwise increment to 1.
     elementCapacity = elementCapacity == 0 ? 1 : elementCapacity << 1;
 
     // Allocate new array
-    auto newContainer = new T[elementCapacity];
+    auto newContainer = std::make_unique<std::unique_ptr<T>[]>(sizeof(T) * elementCapacity);
 
     // Copy elements from old array into new array
-    for (int i = 0; i < oldCapacity; ++i)
-    {
-        newContainer[i] = container[i];
+    for (int i = 0; i < oldCapacity; ++i) {
+        newContainer[i] = std::move(container[i]);
     }
 
-    delete[] container;
-    container = newContainer;
+    container = std::move(newContainer);
 }
 
-void RunDynamicArrayDriver()
-{
+void RunDynamicArrayDriver() {
     DynamicArray<int> dynamicArray;
     std::cout << "Count: " << dynamicArray.GetCount() << std::endl;
     std::cout << "Capacity: " << dynamicArray.GetCapacity() << std::endl;
@@ -101,8 +87,7 @@ void RunDynamicArrayDriver()
     dynamicArray.PushBack(5);
     dynamicArray.PushBack(8);
     dynamicArray.PushBack(9);
-    for (int i = 0; i < dynamicArray.GetCount(); ++i)
-    {
+    for (int i = 0; i < dynamicArray.GetCount(); ++i) {
         std::cout << dynamicArray[i] << " ";
     }
     std::cout << std::endl;
@@ -112,8 +97,7 @@ void RunDynamicArrayDriver()
 
     std::cout << "Popping back an element" << std::endl;
     dynamicArray.PopBack();
-    for (int i = 0; i < dynamicArray.GetCount(); ++i)
-    {
+    for (int i = 0; i < dynamicArray.GetCount(); ++i) {
         std::cout << dynamicArray[i] << " ";
     }
     std::cout << std::endl;
@@ -126,8 +110,7 @@ void RunDynamicArrayDriver()
         dynamicArray.PopBack();
 
     std::cout << "Printing container:" << std::endl;
-    for (int i = 0; i < dynamicArray.GetCount(); ++i)
-    {
+    for (int i = 0; i < dynamicArray.GetCount(); ++i) {
         std::cout << dynamicArray[i] << " ";
     }
     std::cout << std::endl;
@@ -140,8 +123,7 @@ void RunDynamicArrayDriver()
     dynamicArray.PushBack(5);
     dynamicArray.PushBack(8);
     dynamicArray.PushBack(9);
-    for (int i = 0; i < dynamicArray.GetCount(); ++i)
-    {
+    for (int i = 0; i < dynamicArray.GetCount(); ++i) {
         std::cout << dynamicArray[i] << " ";
     }
     std::cout << std::endl;
