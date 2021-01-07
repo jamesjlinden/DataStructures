@@ -27,7 +27,7 @@ void CountingSort(vector<int>& a)
     {
         count[i] += count[static_cast<size_t>(i) - 1];
     }
-    for (int i = a.size() - 1; i >= 0; --i)
+    for (int i = static_cast<int>(a.size()) - 1; i >= 0; --i)
     {
         output[static_cast<size_t>(count[a[i]]) - 1] = a[i];
         --count[a[i]];
