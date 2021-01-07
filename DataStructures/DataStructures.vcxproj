@@ -175,6 +175,7 @@
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QuickSort.h" />
     <ClInclude Include="RadixSort.h" />
+    <ClInclude Include="RedBlackTree.h" />
     <ClInclude Include="SelectionSort.h" />
     <ClInclude Include="ShellSort.h" />
     <ClInclude Include="SinglyLinkedList.cpp" />
@@ -203,6 +204,7 @@
     </ClCompile>
     <ClCompile Include="QuickSort.cpp" />
     <ClCompile Include="RadixSort.cpp" />
+    <ClCompile Include="RedBlackTree.cpp" />
     <ClCompile Include="SelectionSort.cpp" />
     <ClCompile Include="ShellSort.cpp" />
     <ClCompile Include="StdlibAlgorithmDemo.cpp" />

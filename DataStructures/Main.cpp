@@ -19,9 +19,10 @@
 #include "BucketSort.h"
 #include "Dijkstra.h"
 #include "BreadthFirstSearch.h"
+#include "RedBlackTree.h"
 
 int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    RunDynamicArrayDriver();
+    RunRedBlackTreeTests();
 }
