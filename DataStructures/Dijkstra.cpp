@@ -93,7 +93,7 @@ void Dijkstras()
 		Node* smallest = ExtractSmallest(nodes);
 		vector<Node*>* adjacentNodes =
 			AdjacentRemainingNodes(smallest);
-		const int size = adjacentNodes->size();
+		const int size = static_cast<int>(adjacentNodes->size());
 		for (int i = 0; i < size; ++i)
 		{
 			Node* adjacent = adjacentNodes->at(i);
@@ -113,7 +113,7 @@ void Dijkstras()
 // remove it, and return it.
 Node* ExtractSmallest(vector<Node*>& nodes)
 {
-	int size = nodes.size();
+	int size = static_cast<int>(nodes.size());
 	if (size == 0) return NULL;
 	int smallestPosition = 0;
 	Node* smallest = nodes.at(0);
@@ -135,7 +135,7 @@ Node* ExtractSmallest(vector<Node*>& nodes)
 vector<Node*>* AdjacentRemainingNodes(Node* node)
 {
 	vector<Node*>* adjacentNodes = new vector<Node*>();
-	const int size = edges.size();
+	const int size = static_cast<int>(edges.size());
 	for (int i = 0; i < size; ++i)
 	{
 		Edge* edge = edges.at(i);
@@ -158,7 +158,7 @@ vector<Node*>* AdjacentRemainingNodes(Node* node)
 // Return distance between two connected nodes
 int Distance(Node* node1, Node* node2)
 {
-	const int size = edges.size();
+	const int size = static_cast<int>(edges.size());
 	for (int i = 0; i < size; ++i)
 	{
 		Edge* edge = edges.at(i);
@@ -172,7 +172,7 @@ int Distance(Node* node1, Node* node2)
 // Does the 'nodes' vector contain 'node'
 bool Contains(vector<Node*>& nodes, Node* node)
 {
-	const int size = nodes.size();
+	const int size = static_cast<int>(nodes.size());
 	for (int i = 0; i < size; ++i)
 	{
 		if (node == nodes.at(i))
@@ -201,7 +201,7 @@ void RemoveEdge(vector<Edge*>& Edges, Edge* edge);
 vector<Edge*>* AdjacentEdges(vector<Edge*>& edges, Node* node)
 {
 	vector<Edge*>* adjacentEdges = new vector<Edge*>();
-	const int size = edges.size();
+	const int size = static_cast<int>(edges.size());
 	for (int i = 0; i < size; ++i)
 	{
 		Edge* edge = edges.at(i);
