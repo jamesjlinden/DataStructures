@@ -11,36 +11,25 @@ class BinarySearchTree
 {
 public:
     BinarySearchTree();
-
     ~BinarySearchTree();
-
     void Insert(int element);
-
     template <typename T> void Insert(std::initializer_list<T> elements);
-
     int* Search(int value);
-
     void Delete(int element);
-
     void Clear();
 
+    // Printing functions that need mRoot:
     void PrintInOrderTraversal();
-
     void PrintGraphically();
 
 private:
     class Node;
 
     void Insert(Node* nodeToInsert, Node* currNode);
-
     Node* SearchRecursively(int value, Node* currNode);
-
     int Delete(int value, Node* currNode);
-
     void ClearNodeRecursively(Node* node);
-
     void PrintNodesInOrderTraversal(Node* node);
-
     void PrintGraphically(Node* node);
 
     Node* root = 0;
@@ -49,11 +38,8 @@ private:
     {
     public:
         Node(int value);
-
         ~Node();
-
         void SetAsLeftChildOf(Node* parent);
-
         void SetAsRightChildOf(Node* parent);
 
         int value = 0;
