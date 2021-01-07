@@ -1,7 +1,5 @@
 #pragma once
 #include "pch.h"
-#include <iostream>
-#include <memory>
 
 template<typename T>
 class DynamicArray {
