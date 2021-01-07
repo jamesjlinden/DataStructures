@@ -33,7 +33,7 @@ void BucketSort(vector<float>& a)
 
 void RunBucketSortDriver()
 {
-    vector<float> sequence1 = { .42, .32, .33, .52, .37, .47, .51 };
+    vector<float> sequence1 = { .42f, .32f, .33f, .52f, .37f, .47f, .51f };
     BucketSort(sequence1);
     cout << "BucketSort(sequence1) = " << ContainerToString(sequence1.begin(), sequence1.end()) << endl;
 }
