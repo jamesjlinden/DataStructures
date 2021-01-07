@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#define INT_MAX 10000000
+#define DIJKSTRA_INT_MAX 10000000
 
 using namespace std;
 
@@ -32,7 +32,7 @@ class Node
 {
 public:
 	Node(char id)
-		: id(id), previous(NULL), distanceFromStart(INT_MAX)
+		: id(id), previous(NULL), distanceFromStart(DIJKSTRA_INT_MAX)
 	{
 		nodes.push_back(this);
 	}
