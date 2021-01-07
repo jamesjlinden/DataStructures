@@ -13,9 +13,10 @@ void ShellSort(vector<int>& a, int n)
         {
             int temp = a[i];
             int j;
-            for (j = i; j >= gap && a[j - gap] > temp; j -= gap)
+
+            for (j = i; j >= gap && a[j - static_cast<size_t>(gap)] > temp; j -= gap)
             {
-                a[j] = a[j - gap];
+                a[j] = a[j - static_cast<size_t>(gap)];
             }
 
             a[j] = temp;
@@ -28,7 +29,7 @@ void RunShellSortDriver()
     vector<int> sequence1 = { 9, 8, 3, 7, 5, 6, 4, 1 };
 
     cout << "sequence1 = " << ContainerToString(sequence1.begin(), sequence1.end()) << endl;
-    ShellSort(sequence1, sequence1.size());
+    ShellSort(sequence1, static_cast<int>(sequence1.size()));
     cout << "ShellSort() sequence1..." << endl;
     cout << "sequence1 = " << ContainerToString(sequence1.begin(), sequence1.end()) << endl;
 }
